@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Cards Below Navbar</title>
+     
+    <style>
+      .session-type {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .session-type:hover {
+            background-color:#274cdf  !important;
+            color:white
+        }
+        .nav-titles:hover {
+         color:#274cdf !important;
+        }
+        #toggleSwitch:checked {
+          background-color: #274cdf !important;
+          border-color: #f6f6f6 !important;
+       }
+
+      #toggleSwitch:checked::before {
+       background-color: #000 !important;
+      }
+    </style>
+</head>
+
+<body class="bg-light" >
+
+  <!------NAVBAR------------------------------------------------------------------------------------->
+   <nav class="navbar navbar-expand-lg navbar-white bg-white shadow-sm sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand ms-3 fw-bold fs-3 " style="color: #274cdf;" href="#"><i class="fs-3 fas fa-brain" ></i> FocOne</a>
+    <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto my-2 my-lg-0 d-flex align-items-center">
+        <li class="nav-item px-3">
+          <a class="nav-link fw-bold nav-titles" href="body.html">Home</a>
+        </li>
+        <li class="nav-item px-3 ">
+          <a class="nav-link fw-bold nav-titles" href="#">About</a>
+        </li>
+        <li class="nav-item px-3 ">
+          <a class="nav-link fw-bold nav-titles" href="#">Contact Us</a>
+        </li>
+        <li class="nav-item px-3 ">
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
+          <a class=" fw-bold nav-link nav-titles" href="#">
+        <i class="fas fa-user"></i> Login
+          </a>
+          </button>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!------NAVBAR-END------------------------------------------------------------------------------------>
+
+<div class="modal fade mt-5" id="loginModal">
+  <div class="modal-dialog "> 
+    <div class="modal-content shadow"> <!-- Your card -->
+      
+      <!-- Header -->
+      <div class="modal-header bg-white border-bottom-0 d-flex justify-content-between align-items-center">
+        <span class="fs-3 m-0">Login here</span>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+        <form method="POST" action="">
+          <label for="username" class="form-label fw-semibold">Username:</label>
+          <input class="form-control mb-3" type="text" id="username" name="username" placeholder="Enter username" required>
+
+          <label for="password" class="form-label fw-semibold">Password:</label>
+          <input class="form-control mb-3" type="password" id="password" name="password" placeholder="Enter password" required>
+
+          <button type="submit" class="btn w-100 text-white" style="background-color:#274cdf">Login</button>
+        </form>
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer justify-content-center border-top-0">
+        <p class="mb-0">Not registered? 
+          <a class="text-success" data-bs-target="#registerModal" data-bs-toggle="modal" style="text-decoration: none;" >Create an account</a>
+        </p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!------Login-form------------------------------------------------------------------------------------col-lg-6-col-md-8-col-sm-8---
+<div class="container modal" id="loginModal" >
+    <div class="row modal-dialog " ></div>">
+    <div class= "col-3"> </div>
+      <form class="model-content col-lg-6 col-md-8 col-sm-8" method ="POST" action="">
+        <div class ="card shadow">
+          <div class="card-header bg-white border-bottom-0 d-flex justify-content-between align-items-center">
+             <span class="fs-3 m-0">Login here</span>
+             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <div class = "card-body ">
+        <label for="first" class="fs-6 fw-semibold m-1">Username:</label>
+        <input class = "form-control m-1" type="text" id="username" name="username" placeholder="Enter username" required>
+
+        <label class="fs-6 fw-semibold m-1" for="password">Password:</label>
+        <input class = "form-control m-1" type="password" id="password" name="password" placeholder="Enter your Password" required>
+
+        <div class="wrap mt-3">
+        <button class = "btn align-items-center w-100" style="color:white;background-color:#274cdf" type="submit">Login</button>
+      </div>
+          </div>
+         <div class = "card-footer bg-white border-top-0">
+            <p class="text-center">Not registered?
+            <a class="text-success" data-bs-target="#registerModal" data-bs-toggle="modal" style="text-decoration: none;">Create an account</a>
+           </p>
+         </div>
+       </div>
+       </form>
+      <div class= "col-3"> </div>
+     </div>
+   </div>
+  -->
+   <!------Register-form------------------------------------------------------------------------------------>
+<div class="modal fade mt-5" id="registerModal">
+  <div class="modal-dialog "> 
+    <div class="modal-content shadow"> <!-- Your card -->
+      
+      <!-- Header -->
+      <div class="modal-header bg-white border-bottom-0 d-flex justify-content-between align-items-center">
+        <span class="fs-3 m-0">Register here</span>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+        <form method="POST" action="">
+
+          <label for="email" class="form-label fw-semibold">Email:</label>
+          <input class="form-control mb-3" type="email" id="email" name="email" placeholder="Enter email" required>
+
+          <label for="username" class="form-label fw-semibold">Username:</label>
+          <input class="form-control mb-3" type="text" id="username" name="username" placeholder="Enter username" required>
+
+          <label for="password" class="form-label fw-semibold">Password:</label>
+          <input class="form-control mb-3" type="password" id="password" name="password" placeholder="Enter password" required>
+
+          <button type="submit" class="btn w-100 text-white" style="background-color:#274cdf">Login</button>
+        </form>
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer justify-content-center border-top-0">
+        <p class="mb-0">Already have a account ?
+          <a class="text-success" data-bs-target="#loginModal" data-bs-toggle="modal" style="text-decoration: none;">Login</a>
+        </p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-------------------------------BODY----------------------------------------------------------------->
+ <div class="container m-0 m-md-5">
+  <div class="row">
+    
+    <!-- FOCUS - SESSION--------------------------------------------------------------------------- -->
+    
+    <div class="col-lg-8 col-md-12 col-sm-11  align-items-sm-center align-items-md-center">
+      <div class="card flex-sm-column flex-sm-row">
+        <div class="card-header d-flex justify-content-between align-items-center bg-white">
+                        <h2 class="h4 mb-0">Focus Session</h2>
+                        <div class="d-flex gap-4">
+                            <button class="btn  bg-light session-type m-sm-auto">Pomodoro</button>
+                            <button class="btn  bg-light session-type m-sm-auto w-100 w-sm-auto">Deep Focus</button>
+                            <button class="btn  bg-light session-type m-sm-auto ">Custom</button>
+                        </div>
+                    </div>
+        <div class="card-body">
+          <div class="form-check form-switch fs-4 ">
+              <div  ><input class="form-check-input " type="checkbox" id="toggleSwitch"></div>
+              <label class="form-check-label fs-5 mb-2" for="toggleSwitch">Focus Mode (Blocks distractions)</label>
+          </div>
+         <div class= "text-center fs-1 mt-3" id = "time"> 25:00</div>
+        <div class="progress mt-2" style="height: 10px;">
+           <div class="progress-bar" id = "progressBar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+        </div>
+         <div class= "text-center mt-4 mb-0 ms-1">
+          <button class="btn btn-primary ms-2" id="start-b"><i class="fas fa-play"></i> Start</button>
+          <button class="btn btn-primary ms-2" id="pause-b"><i class="fas fa-pause"></i> Pause</button>
+          <button class="btn btn-primary ms-2" id="stop-b"><i class="fas fa-stop"></i> Stop</button>
+         </div>
+
+        </div>
+     </div>
+  </div>
+ 
+
+
+    <!-- Right Card -->
+     
+    <div class="col-lg-4 col-md-12 col-sm-12">
+      <div class="card mt-4 mt-lg-0" >
+        <div class=" card-header align-items-center bg-white h5">Allowed Websites</div>
+        <div class="card-body"  >
+        <div class = "d-flex">
+         <input class="form-control me-2 border-primary" id="websiteInput" type="search" placeholder="Add website (e.g. LeetCode)" aria-label="Search">
+        <button onclick="addWebsite()"  class="btn " style="color:#f6f6f6;background-color:#274cdf;" type="submit">Add</button>
+        </div>
+        <ul class="list-group mt-3" id="allowedList"></ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+</div>
+
+<script>
+
+//............Allowed website...............................................
+let allowedWebsites = ["leetcode.com", "geeksforgeeks.com"];
+function renderList() {
+    const list = document.getElementById("allowedList");
+    list.innerHTML = ""; 
+
+    for (let i = 0; i < allowedWebsites.length; i++) {
+        let li = document.createElement("li");
+        li.className = "list-group-item d-flex justify-content-between align-items-center border-success";
+        
+        li.textContent = allowedWebsites[i]; 
+       
+        let removeBtn = document.createElement("button");
+        removeBtn.innerHTML = "&#10005";
+        removeBtn.className = "btn btn-sm btn-danger border";
+        removeBtn.onclick = function() {
+            allowedWebsites.splice(i, 1); 
+            renderList();
+        };
+        li.appendChild(removeBtn); 
+        list.appendChild(li);      
+    }
+}
+function addWebsite() {
+    const input = document.getElementById("websiteInput").value.trim();
+    if (input && !allowedWebsites.includes(input)) {
+        allowedWebsites.push(input);
+        renderList();
+        document.getElementById("websiteInput").value = "";
+    }
+}
+renderList();
+//Add.website.end..................................................................................
+
+
+ // Timer..........................................................................................            
+  const startBtn = document.getElementById("start-b");
+  const pauseBtn = document.getElementById("pause-b");
+  const stopBtn = document.getElementById("stop-b");
+  const timerDisplay = document.getElementById("time");
+  const progressBar = document.getElementById('progressBar');
+
+  let timer;
+  let timeLeft = 25 * 60;
+  let totalTime = 25 * 60;
+  function updateTimer() {
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+    
+    let sec = seconds<10?"0" + seconds:String(seconds);
+    let min = minutes<10?"0" + minutes:String(minutes);
+    timerDisplay.textContent = `${min}:${sec}`;
+
+    let percent = 100-(timeLeft / totalTime) * 100;
+    progressBar.style.width = percent + "%";
+    progressBar.setAttribute("aria-valuenow", percent);
+    progressBar.textContent = parseInt(percent) + "%";
+  }
+
+  function startTimer() {
+    startBtn.disabled = true;
+    stopBtn.disabled = false;
+     pauseBtn.disabled = false;
+
+    timer = setInterval(() => { // setInterval schedules a function to run repeatedly at fixed time intervals.
+        timeLeft--;
+        updateTimer();
+        
+        if (timeLeft < 0) {
+            clearInterval(timer);// for stoping a function-  timer 
+            timerDisplay.textContent = "Time's up!";
+            startBtn.disabled = false;
+            stopBtn.disabled = false;
+            pauseBtn.disabled = false;
+            timeLeft = 25 * 60; // reset timer
+        }
+    }, 1000);
+  }
+
+  function stopTimer() {
+    clearInterval(timer);
+    startBtn.disabled = false;
+            stopBtn.disabled = true;
+            pauseBtn.disabled = false;
+    timeLeft = 25 * 60;
+    updateTimer();
+  }
+
+  function pauseTimer() {
+    clearInterval(timer);
+    startBtn.disabled = false;
+    stopBtn.disabled = false;
+    pauseBtn.disabled = true;
+  }
+
+  // Attach events
+  startBtn.addEventListener('click', startTimer);
+  stopBtn.addEventListener('click', stopTimer);
+  pauseBtn.addEventListener('click',pauseTimer);
+
+ 
+  updateTimer();
+  // Timer..................................end........................................................ 
+
+
+</script>
+
+</body>
+
+</html>
