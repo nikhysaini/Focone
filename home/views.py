@@ -14,7 +14,6 @@ def index(request):
 
 def register_view(request):
     if request.method == "POST" and not request.POST.get("otp"):
-        # Store registration info in session
         request.session['firstname'] = request.POST.get("firstname")
         request.session['lastname'] = request.POST.get("lastname")
         request.session['email'] = request.POST.get("email")
@@ -26,20 +25,15 @@ def register_view(request):
             messages.error(request,"Email is already registered. Please choose another")
             return render(request, "focone.html", {"show_register_modal": True})
 
-        # Generate OTP and store in session
         request.session['otp'] = random.randint(100000, 999999) 
         otp = request.session.get('otp')
-
-        # Send OTP email
         subject = "OTP for Focone registration"
         message = f"Your OTP for registration is {otp}"
         send_mail(subject,message,settings.EMAIL_HOST_USER,[request.session.get('email')])
 
-        # Show OTP modal
         messages.error(request,"OTP sent to registered email")
         return render(request, "focone.html", { "show_otp": True})
 
-    # OTP verification happens in **separate request**
     if request.method == "POST" and request.POST.get("otp"):
         user_opt = request.POST.get("otp")
         if str(user_opt) == str(request.session.get('otp')):
@@ -51,8 +45,6 @@ def register_view(request):
             )
             user.set_password(request.session.get('password'))
             user.save()
-
-            # Clear session
             request.session.flush()
             return render(request, "focone.html", {"account_created":True})
         else:
