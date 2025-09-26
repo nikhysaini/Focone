@@ -8,6 +8,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 import random
 
+# git add . && git commit -m "Updated project" && git push origin main // one line Git command for updating
 
 def index(request):
     return render(request,"focone.html")
