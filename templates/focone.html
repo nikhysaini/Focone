@@ -64,22 +64,35 @@
   </div>
 </nav>
 <!------NAVBAR-END------------------------------------------------------------------------------------>
+ 
+
+{{request.user.first_name}}
+{{request.user.last_name}}
+<!------Login-form-------------------------------------------------------------------------------------->
 
 <div class="modal fade mt-5" id="loginModal">
   <div class="modal-dialog "> 
-    <div class="modal-content shadow"> <!-- Your card -->
-      
+    
       <!-- Header -->
       <div class="modal-header bg-white border-bottom-0 d-flex justify-content-between align-items-center">
         <span class="fs-3 m-0">Login here</span>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-
+      <div class="modal-content shadow"> <!-- Your card -->
+      
+      {% if messages and show_login_modal %}
+        <ul>
+            {% for message in messages %}
+                <li class="text-danger">{{ message }}</li>
+            {% endfor %}
+        </ul>
+          {% endif %}
       <!-- Body -->
       <div class="modal-body">
-        <form method="POST" action="">
-          <label for="username" class="form-label fw-semibold">Username:</label>
-          <input class="form-control mb-3" type="text" id="username" name="username" placeholder="Enter username" required>
+        <form method="POST" action="{% url 'login' %}">
+          {% csrf_token %}
+          <label for="email" class="form-label fw-semibold">Email:</label>
+          <input class="form-control mb-3" type="text" id="username" name="email" placeholder="Enter username" required>
 
           <label for="password" class="form-label fw-semibold">Password:</label>
           <input class="form-control mb-3" type="password" id="password" name="password" placeholder="Enter password" required>
@@ -99,65 +112,49 @@
   </div>
 </div>
 
+ {% if show_login_modal %}
+<script>
+  bootstrap.Modal.getOrCreateInstance(document.getElementById('loginModal')).show();// showing model using javascript
+</script>
+{% endif %}
 
-<!------Login-form------------------------------------------------------------------------------------col-lg-6-col-md-8-col-sm-8---
-<div class="container modal" id="loginModal" >
-    <div class="row modal-dialog " ></div>">
-    <div class= "col-3"> </div>
-      <form class="model-content col-lg-6 col-md-8 col-sm-8" method ="POST" action="">
-        <div class ="card shadow">
-          <div class="card-header bg-white border-bottom-0 d-flex justify-content-between align-items-center">
-             <span class="fs-3 m-0">Login here</span>
-             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
 
-          <div class = "card-body ">
-        <label for="first" class="fs-6 fw-semibold m-1">Username:</label>
-        <input class = "form-control m-1" type="text" id="username" name="username" placeholder="Enter username" required>
-
-        <label class="fs-6 fw-semibold m-1" for="password">Password:</label>
-        <input class = "form-control m-1" type="password" id="password" name="password" placeholder="Enter your Password" required>
-
-        <div class="wrap mt-3">
-        <button class = "btn align-items-center w-100" style="color:white;background-color:#274cdf" type="submit">Login</button>
-      </div>
-          </div>
-         <div class = "card-footer bg-white border-top-0">
-            <p class="text-center">Not registered?
-            <a class="text-success" data-bs-target="#registerModal" data-bs-toggle="modal" style="text-decoration: none;">Create an account</a>
-           </p>
-         </div>
-       </div>
-       </form>
-      <div class= "col-3"> </div>
-     </div>
-   </div>
-  -->
    <!------Register-form------------------------------------------------------------------------------------>
 <div class="modal fade mt-5" id="registerModal">
   <div class="modal-dialog "> 
     <div class="modal-content shadow"> <!-- Your card -->
-      
+    
       <!-- Header -->
       <div class="modal-header bg-white border-bottom-0 d-flex justify-content-between align-items-center">
         <span class="fs-3 m-0">Register here</span>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-
+        {% if messages and show_register_modal %}
+        <ul>
+            {% for message in messages %}
+                <li class="text-danger">{{ message }}</li>
+            {% endfor %}
+        </ul>
+       {% endif %}
       <!-- Body -->
       <div class="modal-body">
-        <form method="POST" action="">
+        <form method="POST" action="{% url 'register' %}">
+          {% csrf_token %}
 
+          <label for="firstname" class="form-label fw-semibold">First Name:</label>
+          <input class="form-control mb-3" type="text" id="firstname" name="firstname" placeholder="Enter first name" required>
+
+          <label for="firstname" class="form-label fw-semibold">Last Name:</label>
+          <input class="form-control mb-3" type="text" id="lastname" name="lastname" placeholder="Enter last name" required>
+          
           <label for="email" class="form-label fw-semibold">Email:</label>
           <input class="form-control mb-3" type="email" id="email" name="email" placeholder="Enter email" required>
 
-          <label for="username" class="form-label fw-semibold">Username:</label>
-          <input class="form-control mb-3" type="text" id="username" name="username" placeholder="Enter username" required>
-
           <label for="password" class="form-label fw-semibold">Password:</label>
           <input class="form-control mb-3" type="password" id="password" name="password" placeholder="Enter password" required>
-
-          <button type="submit" class="btn w-100 text-white" style="background-color:#274cdf">Login</button>
+         
+          
+          <button type="submit" class="btn w-100 text-white" style="background-color:#274cdf">Register</button>
         </form>
       </div>
 
@@ -171,7 +168,53 @@
     </div>
   </div>
 </div>
+{% if show_register_modal %}
+<script>
+  bootstrap.Modal.getOrCreateInstance(document.getElementById('registerModal')).show();
+</script>
+{% endif %}
+<!----------------------------------------------------------------------------------------------------->
+<div class="modal fade mt-5" id="registerotp">
+  <div class="modal-dialog "> 
+    <div class="modal-content shadow"> 
+    
+    
+      <div class="modal-header bg-white border-bottom-0 d-flex justify-content-between align-items-center">
+        <span class="fs-3 m-0">Enter OTP</span>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+        {% if messages and show_otp %}
+        <ul>
+            {% for message in messages %}
+                <li class="text-danger">{{ message }}</li>
+            {% endfor %}
+        </ul>
+       {% endif %}
+      <!-- Body -->
+      <div class="modal-body">
+        <form method="POST" action="{% url 'otp' %}">
+          {% csrf_token %}
+          
+          <label for="otp" class="form-label fw-semibold">Enter OTP:</label>
+          <input class="form-control mb-3" type="text" id="otp" name="otp" placeholder="Enter otp here" required>
 
+          <button type="submit" class="btn w-100 text-white" style="background-color:#274cdf">Submit</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% if show_otp %}
+<script>
+  bootstrap.Modal.getOrCreateInstance(document.getElementById('registerotp')).show();
+</script>
+{% endif %}
+{% if account_created %}
+<script>
+  alert("Account created successfully . Please login")
+</script>
+{% endif %}
 
 <!-------------------------------BODY----------------------------------------------------------------->
  <div class="container m-0 m-md-5">
