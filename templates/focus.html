@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+{% block st %}
+<div class="container m-0 m-md-5">
+  <div class="row">
+    
+    <!-- FOCUS - SESSION--------------------------------------------------------------------------- -->
+    <div class="col-lg-8 col-md-12 col-sm-11  align-items-sm-center align-items-md-center">
+      <div class="card flex-sm-column flex-sm-row">
+        <div class="card-header d-flex justify-content-between align-items-center bg-white">
+                        <h2 class="h4 mb-0">Focus Session</h2>
+                        <div class="d-flex gap-4">
+                            <button class="btn  bg-light session-type m-sm-auto">Pomodoro</button>
+                            <button class="btn  bg-light session-type m-sm-auto w-100 w-sm-auto">Deep Focus</button>
+                            <button class="btn  bg-light session-type m-sm-auto ">Custom</button>
+                        </div>
+                    </div>
+        <div class="card-body">
+          <div class="form-check form-switch fs-4 ">
+              <div  ><input class="form-check-input " type="checkbox" id="toggleSwitch"></div>
+              <label class="form-check-label fs-5 mb-2" for="toggleSwitch">Focus Mode (Blocks distractions)</label>
+          </div>
+         <div class= "text-center fs-1 mt-3" id = "time"> 25:00</div>
+        <div class="progress mt-2" style="height: 10px;">
+           <div class="progress-bar" id = "progressBar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+        </div>
+         <div class= "text-center mt-4 mb-0 ms-1">
+          <button class="btn btn-primary ms-2" id="start-b"><i class="fas fa-play"></i> Start</button>
+          <button class="btn btn-primary ms-2" id="pause-b"><i class="fas fa-pause"></i> Pause</button>
+          <button class="btn btn-primary ms-2" id="stop-b"><i class="fas fa-stop"></i> Stop</button>
+         </div>
+
+        </div>
+     </div>
+  </div>
+ 
+
+
+    <!--Right -->
+    <div class="col-lg-4 col-md-12 col-sm-12">
+      <div class="card mt-4 mt-lg-0" >
+        <div class=" card-header align-items-center bg-white h5">Allowed Websites</div>
+        <div class="card-body"  >
+        <div class = "d-flex">
+         <input class="form-control me-2 border-primary" id="websiteInput" type="search" placeholder="Add website (e.g. LeetCode)" aria-label="Search">
+        <button onclick="addWebsite()"  class="btn " style="color:#f6f6f6;background-color:#274cdf;" type="submit">Add</button>
+        </div>
+        <ul class="list-group mt-3" id="allowedList"></ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+</div>
+
+<script>
+
+//............Allowed website...............................................
+let allowedWebsites = ["leetcode.com", "geeksforgeeks.com"];
+function renderList() {
+    const list = document.getElementById("allowedList");
+    list.innerHTML = ""; 
+
+    for (let i = 0; i < allowedWebsites.length; i++) {
+        let li = document.createElement("li");
+        li.className = "list-group-item d-flex justify-content-between align-items-center border-success";
+        
+        li.textContent = allowedWebsites[i]; 
+       
+        let removeBtn = document.createElement("button");
+        removeBtn.innerHTML = "&#10005";
+        removeBtn.className = "btn btn-sm btn-danger border";
+        removeBtn.onclick = function() {
+            allowedWebsites.splice(i, 1); 
+            renderList();
+        };
+        li.appendChild(removeBtn); 
+        list.appendChild(li);      
+    }
+}
+function addWebsite() {
+    const input = document.getElementById("websiteInput").value.trim();
+    if (input && !allowedWebsites.includes(input)) {
+        allowedWebsites.push(input);
+        renderList();
+        document.getElementById("websiteInput").value = "";
+    }
+}
+renderList();
+//Add.website.end..................................................................................
+
+
+ // Timer..........................................................................................            
+  const startBtn = document.getElementById("start-b");
+  const pauseBtn = document.getElementById("pause-b");
+  const stopBtn = document.getElementById("stop-b");
+  const timerDisplay = document.getElementById("time");
+  const progressBar = document.getElementById('progressBar');
+
+  let timer;
+  let timeLeft = 25 * 60;
+  let totalTime = 25 * 60;
+  function updateTimer() {
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+    
+    let sec = seconds<10?"0" + seconds:String(seconds);
+    let min = minutes<10?"0" + minutes:String(minutes);
+    timerDisplay.textContent = `${min}:${sec}`;
+
+    let percent = 100-(timeLeft / totalTime) * 100;
+    progressBar.style.width = percent + "%";
+    progressBar.setAttribute("aria-valuenow", percent);
+    progressBar.textContent = parseInt(percent) + "%";
+  }
+
+  function startTimer() {
+    startBtn.disabled = true;
+    stopBtn.disabled = false;
+     pauseBtn.disabled = false;
+
+    timer = setInterval(() => { // setInterval schedules a function to run repeatedly at fixed time intervals.
+        timeLeft--;
+        updateTimer();
+        
+        if (timeLeft < 0) {
+            clearInterval(timer);// for stoping a function-  timer 
+            timerDisplay.textContent = "Time's up!";
+            startBtn.disabled = false;
+            stopBtn.disabled = false;
+            pauseBtn.disabled = false;
+            timeLeft = 25 * 60; // reset timer
+        }
+    }, 1000);
+  }
+
+  function stopTimer() {
+    clearInterval(timer);
+    startBtn.disabled = false;
+            stopBtn.disabled = true;
+            pauseBtn.disabled = false;
+    timeLeft = 25 * 60;
+    updateTimer();
+  }
+
+  function pauseTimer() {
+    clearInterval(timer);
+    startBtn.disabled = false;
+    stopBtn.disabled = false;
+    pauseBtn.disabled = true;
+  }
+
+  // Attach events
+  startBtn.addEventListener('click', startTimer);
+  stopBtn.addEventListener('click', stopTimer);
+  pauseBtn.addEventListener('click',pauseTimer);
+
+ 
+  updateTimer();
+  // Timer..................................end........................................................ 
+
+
+</script>
+{% endblock %}

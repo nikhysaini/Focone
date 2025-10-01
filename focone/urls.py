@@ -17,11 +17,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from home import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
    path('', views.index, name='index'),
-   path('login/', views.login_view, name='login'),   
+   path('login/', views.login_view, name='login'),  
+   path('edit-profile/', views.editprofile, name='editprofile'), 
+   path('profile/', views.profile, name='profile'), 
+   path('focus-mode/', views.focusmode, name='focusmode'), 
    path('register/', views.register_view, name='register'),
    path('otp/', views.register_view, name='otp'), 
    path('admin/', admin.site.urls), 
 ]
+
+if settings.DEBUG:
+   urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+   urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+   
